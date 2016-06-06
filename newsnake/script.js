@@ -29,6 +29,7 @@ function leftPositionFood() {
     var leftPosition = Math.floor(Math.random()*(max - min) + min);
     if(leftPosition%20==0){
         food.style.left=leftPosition+"px";
+
     }
     else {
         leftPositionFood();
@@ -83,6 +84,14 @@ function start(){
 function move(func){
     timerId = setInterval(function() {
         func();
+        if(snake.offsetLeft==parseInt(String(food.style.left)) && snake.offsetTop==parseInt(String(food.style.top))){
+
+            positionFood();
+            addElementSnake();
+
+        }
+
+
     }, 100);
 
 }
@@ -92,13 +101,7 @@ function right(){
     snake.style.left = snake.offsetLeft;
     a = snake.offsetLeft;
     snake.style.left=(a+20)+"px";
-    console.log(snake.offsetLeft);
 
-    //остановка анимации
-
-    /*if(snake.offsetLeft>=480){
-     clearInterval(timerId);
-     }*/
 
 }
 function left(){
@@ -107,7 +110,7 @@ function left(){
     snake.style.left = snake.offsetLeft;
     a = snake.offsetLeft;
     snake.style.left=(a-20)+"px";
-    console.log(snake.offsetLeft);
+
 }
 function up(){
 
@@ -115,7 +118,7 @@ function up(){
     snake.style.top = snake.offsetTop;
     a = snake.offsetTop;
     snake.style.top=(a-20)+"px";
-    console.log(snake.offsetTop);
+
 }
 function down(){
 
@@ -123,5 +126,8 @@ function down(){
     snake.style.top = snake.offsetTop;
     a = snake.offsetTop;
     snake.style.top=(a+20)+"px";
-    console.log(snake.offsetTop);
+
+}
+function addElementSnake() {
+
 }
