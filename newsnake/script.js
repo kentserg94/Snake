@@ -4,6 +4,46 @@ field = snake.offsetParent;
 var timerId;
 
 //start();
+//food
+
+var food = document.getElementById("food");
+function topPositionFood() {
+    var max=500;
+    var min=0;
+
+    var topPosition = Math.floor(Math.random()*(max - min) + min);
+
+    if(topPosition%20==0){
+        food.style.top=topPosition+"px";
+    }
+    else {
+        topPositionFood();
+    }
+    
+}
+function leftPositionFood() {
+    var max=500;
+    var min=0;
+
+
+    var leftPosition = Math.floor(Math.random()*(max - min) + min);
+    if(leftPosition%20==0){
+        food.style.left=leftPosition+"px";
+    }
+    else {
+        leftPositionFood();
+    }
+
+}
+function positionFood() {
+    topPositionFood();
+    leftPositionFood();
+}
+
+positionFood();
+
+
+
 
 window.addEventListener("keydown", function(event) {
     if (event.keyCode == 68) {

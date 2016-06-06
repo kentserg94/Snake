@@ -13,3 +13,11 @@
     height: 20px;
     background-color:darkgreen;
 }
+
+#food {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    background-color:red;
+    z-index: -100;
+}
