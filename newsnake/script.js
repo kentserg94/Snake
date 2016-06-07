@@ -5,7 +5,11 @@ var timerId;
 var direction = null;
 var numberSnakeElement=0;
 var add;
+var elementSnake=[];
 
+if(numberSnakeElement==4){
+    start();
+}
 
 
 //start();
@@ -83,7 +87,11 @@ window.addEventListener("keydown", function(event) {
 });
 
 function start(){
-    move(right);
+    clearInterval(timerId);
+    snake.style.left=0+'px';
+    snake.style.top=0+'px';
+
+    elementSnake.length=0;
 }
 
 
@@ -92,8 +100,13 @@ function move(func){
         func();
         pos.snPosX.unshift(snake.style.left);
         pos.snPosY.unshift(snake.style.top);
-        console.log(pos.snPosX[2]);
 
+        for (var i = 0; i<elementSnake.length; i++){
+            elementSnake[i].style.left=pos.snPosX[i+1];
+            elementSnake[i].style.top=pos.snPosY[i+1];
+            elementSnake[i].style.display="block";
+
+        }
 
         if(snake.offsetLeft==parseInt(String(food.style.left)) && snake.offsetTop==parseInt(String(food.style.top))){
 
@@ -101,16 +114,18 @@ function move(func){
 
             addElementSnake(numberSnakeElement+1);
             document.getElementById("number"+numberSnakeElement);
-
-
-
+            elementSnake.push(add);
+            console.log(elementSnake);
             numberSnakeElement++;
             console.log(numberSnakeElement);
 
 
+
         }
-        add.style.left=pos.snPosX[1];
-        add.style.top=pos.snPosY[1];
+
+        if(numberSnakeElement==4){
+            start();
+        }
 
 
     }, 100);
