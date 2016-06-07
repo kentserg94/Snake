@@ -3,6 +3,7 @@ var field = document.getElementById("field");
 field = snake.offsetParent;
 var timerId;
 var direction = null;
+var numberSnakeElement=0;
 
 //start();
 //food
@@ -90,7 +91,10 @@ function move(func){
         if(snake.offsetLeft==parseInt(String(food.style.left)) && snake.offsetTop==parseInt(String(food.style.top))){
 
             positionFood();
-            addElementSnake();
+
+            addElementSnake(numberSnakeElement+1);
+            numberSnakeElement++;
+            console.log(numberSnakeElement);
 
 
         }
@@ -145,7 +149,7 @@ function down(){
     }
 
 }
-function addElementSnake() {
-
+function addElementSnake(number) {
+   var add = snake.appendChild(document.createElement("div"));
+    add.className="number"+number;
 }
-snake.appendChild(document.createElement("div"));
