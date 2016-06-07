@@ -23,7 +23,7 @@
     background-color:red;
     z-index: -100;
 }
-#snake div{
+.element {
     position: absolute;
     width: 20px;
     height: 20px;
