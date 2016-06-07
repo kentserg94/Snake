@@ -87,6 +87,10 @@ function start(){
 function move(func){
     timerId = setInterval(function() {
         func();
+        pos.snPosX.unshift(snake.style.left);
+        pos.snPosY.unshift(snake.style.top);
+        console.log(pos.snPosX[2]);
+
 
         if(snake.offsetLeft==parseInt(String(food.style.left)) && snake.offsetTop==parseInt(String(food.style.top))){
 
@@ -153,3 +157,9 @@ function addElementSnake(number) {
    var add = snake.appendChild(document.createElement("div"));
     add.className="number"+number;
 }
+
+var pos = {
+    snPosX: [],
+    snPosY: []
+
+};
