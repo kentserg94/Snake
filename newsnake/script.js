@@ -49,7 +49,7 @@ positionFood();
 
 
 window.addEventListener("keydown", function(event) {
-    if (event.keyCode == 68 && direction!=2) {
+    if (event.keyCode == 68 && direction!=2 && direction!=1) {
         clearInterval(timerId);
 
         move(right);
@@ -59,21 +59,21 @@ window.addEventListener("keydown", function(event) {
 
 
 window.addEventListener("keydown", function(event) {
-    if (event.keyCode == 65 && direction!=1) {
+    if (event.keyCode == 65 && direction!=1 && direction!=2) {
         clearInterval(timerId);
         move(left);
     }
 });
 
 window.addEventListener("keydown", function(event) {
-    if (event.keyCode == 83 && direction!=3) {
+    if (event.keyCode == 83 && direction!=3 && direction!=4) {
         clearInterval(timerId);
         move(down);
     }
 });
 
 window.addEventListener("keydown", function(event) {
-    if (event.keyCode == 87 && direction!=4) {
+    if (event.keyCode == 87 && direction!=4 && direction!=3) {
         clearInterval(timerId);
         move(up);
     }
