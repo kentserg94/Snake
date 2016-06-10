@@ -97,10 +97,11 @@ function start(){
 
 
 
-
-
-         var elem=document.getElementsByClassName("element");
-        console.log(elem);
+    for(var i=1; i<=elementSnake.length;i++){
+        var del = field.appendChild(document.getElementById("number"+String(i)));
+        field.removeChild(del);
+    }
+    elementSnale = [];
 
 }
 
@@ -114,7 +115,7 @@ function move(func){
         for (var check=1;check < elementSnake.length; check++){
             if(snake.style.left==pos.snPosX[check] && snake.style.top==pos.snPosY[check]){
                 console.log("error");
-                // start();
+                 start();
             }
         }
 
