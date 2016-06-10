@@ -6,6 +6,10 @@ var direction = null;
 var numberSnakeElement=0;
 var add;
 var elementSnake=[];
+var point=document.getElementById("point");
+
+
+point.innerHTML="Score:"+numberSnakeElement;
 
 var pos = {
     snPosX: [],
@@ -94,15 +98,25 @@ function start(){
     clearInterval(timerId);
     snake.style.left=240+'px';
     snake.style.top=240+'px';
+    numberSnakeElement=0;
+    direction=undefined;
 
 
 
     for(var i=1; i<=elementSnake.length;i++){
-        var del = field.appendChild(document.getElementById("number"+String(i)));
-        field.removeChild(del);
-    }
-    elementSnale = [];
+        // var del = field.appendChild(document.getElementById("number"+String(i)));
+        // field.removeChild(del);
+        var x =document.getElementById("number"+String(i));
+        x.remove();
 
+
+    }
+    elementSnake = [];
+    pos.snPosX=[];
+    pos.snPosY=[];
+    console.log(x);
+    x=undefined;
+    console.log(x);
 }
 
 
@@ -128,6 +142,12 @@ function move(func){
             elementSnake[i].style.left=pos.snPosX[i+1];
             elementSnake[i].style.top=pos.snPosY[i+1];
             elementSnake[i].style.display="block";
+            if(i%2==0){
+                elementSnake[i].style.backgroundColor="black";
+            }
+            else{
+                elementSnake[i].style.backgroundColor="blue";
+            }
 
         }
 
@@ -151,11 +171,12 @@ function move(func){
 
             numberSnakeElement++;
 
-
+            point.innerHTML="Score:"+numberSnakeElement;
 
 
         }
 
+        //noinspection JSAnnotator
 
 
     }, 100);

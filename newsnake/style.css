@@ -30,3 +30,9 @@
     background-color:blue;
     display: none;
 }
+.score{
+    position: relative;
+    left:50%;
+    clear: both;
+   margin: 0 auto;
+}
