@@ -1,12 +1,13 @@
 var snake = document.getElementById("snake");
 var field = document.getElementById("field");
-field = snake.offsetParent;
+var point=document.getElementById("point");
+var food = document.getElementById("food");
+
 var timerId;
 var direction = null;
 var numberSnakeElement=0;
-var add;
+var createDivElement;
 var elementSnake=[];
-var point=document.getElementById("point");
 
 
 point.innerHTML="Score:"+numberSnakeElement;
@@ -20,39 +21,37 @@ var pos = {
 
 
 
-var food = document.getElementById("food");
-function topPositionFood() {
-    var max=500;
-    var min=0;
 
-    var topPosition = Math.floor(Math.random()*(max - min) + min);
+    function topPositionFood() {
+        var max=500;
+        var min=0;
+        var topPosition = Math.floor(Math.random()*(max - min) + min);
 
-    if(topPosition%20==0 ){
+            if(topPosition%20==0 ){
 
-        food.style.top=topPosition+"px";
-    }
-    else {
-        topPositionFood();
-    }
+            food.style.top=topPosition+"px";
+            }
+            else {
+            topPositionFood();
+            }
     
-}
-function leftPositionFood() {
-    var max=500;
-    var min=0;
+    }
+    function leftPositionFood() {
+        var max=500;
+        var min=0;
+        var leftPosition = Math.floor(Math.random()*(max - min) + min);
+
+            if(leftPosition%20==0){
 
 
-    var leftPosition = Math.floor(Math.random()*(max - min) + min);
-    if(leftPosition%20==0){
+                food.style.left=leftPosition+"px";
 
-
-        food.style.left=leftPosition+"px";
+            }
+            else {
+                leftPositionFood();
+            }
 
     }
-    else {
-        leftPositionFood();
-    }
-
-}
 function positionFood() {
 
     topPositionFood();
@@ -99,13 +98,11 @@ function start(){
     snake.style.left=240+'px';
     snake.style.top=240+'px';
     numberSnakeElement=0;
-    direction=undefined;
+    direction=null;
 
 
 
     for(var i=1; i<=elementSnake.length;i++){
-        // var del = field.appendChild(document.getElementById("number"+String(i)));
-        // field.removeChild(del);
         var x =document.getElementById("number"+String(i));
         x.remove();
 
@@ -114,9 +111,7 @@ function start(){
     elementSnake = [];
     pos.snPosX=[];
     pos.snPosY=[];
-    console.log(x);
-    x=undefined;
-    console.log(x);
+
 }
 
 
@@ -128,8 +123,7 @@ function move(func){
 
         for (var check=1;check < elementSnake.length; check++){
             if(snake.style.left==pos.snPosX[check] && snake.style.top==pos.snPosY[check]){
-                console.log("error");
-                 start();
+                 return start();
             }
         }
 
@@ -155,7 +149,6 @@ function move(func){
         {
             if(food.style.left==pos.snPosX[checkPosition] && food.style.top==pos.snPosY[checkPosition]){
                 positionFood();
-                console.log('ssss');
             }
 
         }
@@ -167,7 +160,7 @@ function move(func){
 
             addElementSnake(numberSnakeElement+1);
             document.getElementById("number"+numberSnakeElement);
-            elementSnake.push(add);
+            elementSnake.push(createDivElement);
 
             numberSnakeElement++;
 
@@ -176,16 +169,12 @@ function move(func){
 
         }
 
-        //noinspection JSAnnotator
-
-
     }, 100);
 
 }
 function right(){
     direction=1;
     var a;
-    snake.style.left = snake.offsetLeft;
     a = snake.offsetLeft;
     snake.style.left=(a+20)+"px";
     if(parseInt(String(snake.style.left))>480){
@@ -197,7 +186,6 @@ function right(){
 function left(){
     direction=2;
     var a;
-    snake.style.left = snake.offsetLeft;
     a = snake.offsetLeft;
     snake.style.left=(a-20)+"px";
     if(parseInt(String(snake.style.left))<0){
@@ -208,7 +196,6 @@ function left(){
 function up(){
     direction=3;
     var a;
-    snake.style.top = snake.offsetTop;
     a = snake.offsetTop;
     snake.style.top=(a-20)+"px";
     if(parseInt(String(snake.style.top))<0){
@@ -219,7 +206,6 @@ function up(){
 function down(){
     direction=4;
     var a;
-    snake.style.top = snake.offsetTop;
     a = snake.offsetTop;
     snake.style.top=(a+20)+"px";
     if(parseInt(String(snake.style.top))>480){
@@ -228,11 +214,9 @@ function down(){
 
 }
 function addElementSnake(number) {
-    add = field.appendChild(document.createElement("div"));
-    add.className="element";
+    createDivElement = field.appendChild(document.createElement("div"));
+    createDivElement.className="element";
 
-    add.setAttribute("id","number"+number);
-
+    createDivElement.setAttribute("id","number"+number);
 
 }
-
