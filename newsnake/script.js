@@ -115,6 +115,7 @@ function start(){
 }
 
 
+<<<<<<< HEAD
 function contactCheck() {
     for (var check = 1; check < elementSnake.length; check++) {
         if (snake.style.left == pos.snPosX[check] && snake.style.top == pos.snPosY[check]) {
@@ -122,13 +123,20 @@ function contactCheck() {
         }
     }
 }
+=======
+
+>>>>>>> ad31a91acfb967e9516b1a5045198fd6cfb27350
 function move(func){
     timerId = setInterval(function() {
         func();
         pos.snPosX.unshift(snake.style.left);
         pos.snPosY.unshift(snake.style.top);
 
+<<<<<<< HEAD
         contactCheck();
+=======
+        clashCheck();
+>>>>>>> ad31a91acfb967e9516b1a5045198fd6cfb27350
 
         if(pos.snPosX.length>elementSnake.length+1 && pos.snPosY.length>elementSnake.length+1){
             pos.snPosX.splice(pos.snPosX.length-1,1);
@@ -222,4 +230,11 @@ function addElementSnake(number) {
 
     createDivElement.setAttribute("id","number"+number);
 
+}
+function clashCheck() {
+    for (var check = 1; check < elementSnake.length; check++) {
+        if (snake.style.left == pos.snPosX[check] && snake.style.top == pos.snPosY[check]) {
+            start();
+        }
+    }
 }
