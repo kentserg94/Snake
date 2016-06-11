@@ -115,17 +115,20 @@ function start(){
 }
 
 
+function contactCheck() {
+    for (var check = 1; check < elementSnake.length; check++) {
+        if (snake.style.left == pos.snPosX[check] && snake.style.top == pos.snPosY[check]) {
+            start();
+        }
+    }
+}
 function move(func){
     timerId = setInterval(function() {
         func();
         pos.snPosX.unshift(snake.style.left);
         pos.snPosY.unshift(snake.style.top);
 
-        for (var check=1;check < elementSnake.length; check++){
-            if(snake.style.left==pos.snPosX[check] && snake.style.top==pos.snPosY[check]){
-                 return start();
-            }
-        }
+        contactCheck();
 
         if(pos.snPosX.length>elementSnake.length+1 && pos.snPosY.length>elementSnake.length+1){
             pos.snPosX.splice(pos.snPosX.length-1,1);
