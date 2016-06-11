@@ -12,9 +12,11 @@ var elementSnake=[];
 
 point.innerHTML="Score:"+numberSnakeElement;
 
-var pos = {
-    snPosX: [],
-    snPosY: []
+var SnakeObj = {
+    // snake: document.getElementById("snake"),
+    snakeWidth: 20,
+    snPosLeft: [],
+    snPosTop: []
 
 };
 
@@ -109,75 +111,35 @@ function start(){
 
     }
     elementSnake = [];
-    pos.snPosX=[];
-    pos.snPosY=[];
+    SnakeObj.snPosX=[];
+    SnakeObj.snPosTop=[];
 
 }
 
-
-function contactCheck() {
-    for (var check = 1; check < elementSnake.length; check++) {
-        if (snake.style.left == pos.snPosX[check] && snake.style.top == pos.snPosY[check]) {
-            start();
-        }
-    }
-}
 
 
 
 function move(func){
     timerId = setInterval(function() {
         func();
-        pos.snPosX.unshift(snake.style.left);
-        pos.snPosY.unshift(snake.style.top);
 
+        SnakeObj.snPosLeft.unshift(snake.style.left);
+        SnakeObj.snPosTop.unshift(snake.style.top);
 
         contactCheck();
+        posArrDelete();
+        addPosInArr();
 
-
-
-
-        if(pos.snPosX.length>elementSnake.length+1 && pos.snPosY.length>elementSnake.length+1){
-            pos.snPosX.splice(pos.snPosX.length-1,1);
-            pos.snPosY.splice(pos.snPosY.length-1,1);
-        }
-
-        for (var i = 0; i<elementSnake.length; i++){
-            elementSnake[i].style.left=pos.snPosX[i+1];
-            elementSnake[i].style.top=pos.snPosY[i+1];
-            elementSnake[i].style.display="block";
-            if(i%2==0){
-                elementSnake[i].style.backgroundColor="black";
-            }
-            else{
-                elementSnake[i].style.backgroundColor="blue";
-            }
-
-        }
-
-        for (var checkPosition = 1; checkPosition < pos.snPosX.length; checkPosition++)
+        //
+        for (var checkPosition = 1; checkPosition < SnakeObj.snPosLeft.length; checkPosition++)
         {
-            if(food.style.left==pos.snPosX[checkPosition] && food.style.top==pos.snPosY[checkPosition]){
+            if(food.style.left==SnakeObj.snPosLeft[checkPosition] && food.style.top==SnakeObj.snPosTop[checkPosition]){
                 positionFood();
             }
 
         }
 
-        if(snake.offsetLeft==parseInt(String(food.style.left)) && snake.offsetTop==parseInt(String(food.style.top))){
-
-            positionFood();
-
-
-            addElementSnake(numberSnakeElement+1);
-            document.getElementById("number"+numberSnakeElement);
-            elementSnake.push(createDivElement);
-
-            numberSnakeElement++;
-
-            point.innerHTML="Score:"+numberSnakeElement;
-
-
-        }
+        addDivToArr();
 
     }, 100);
 
@@ -186,7 +148,7 @@ function right(){
     direction=1;
     var a;
     a = snake.offsetLeft;
-    snake.style.left=(a+20)+"px";
+    snake.style.left=(a+SnakeObj.snakeWidth)+"px";
     if(parseInt(String(snake.style.left))>480){
         snake.style.left=0+"px";
     }
@@ -197,7 +159,7 @@ function left(){
     direction=2;
     var a;
     a = snake.offsetLeft;
-    snake.style.left=(a-20)+"px";
+    snake.style.left=(a-SnakeObj.snakeWidth)+"px";
     if(parseInt(String(snake.style.left))<0){
         snake.style.left=480+"px";
     }
@@ -207,7 +169,7 @@ function up(){
     direction=3;
     var a;
     a = snake.offsetTop;
-    snake.style.top=(a-20)+"px";
+    snake.style.top=(a-SnakeObj.snakeWidth)+"px";
     if(parseInt(String(snake.style.top))<0){
         snake.style.top=480+"px";
     }
@@ -217,7 +179,7 @@ function down(){
     direction=4;
     var a;
     a = snake.offsetTop;
-    snake.style.top=(a+20)+"px";
+    snake.style.top=(a+SnakeObj.snakeWidth)+"px";
     if(parseInt(String(snake.style.top))>480){
         snake.style.top=0+"px";
     }
@@ -229,4 +191,49 @@ function addElementSnake(number) {
 
     createDivElement.setAttribute("id","number"+number);
 
+}
+
+function contactCheck() {
+    for (var check = 1; check < elementSnake.length; check++) {
+        if (snake.style.left == SnakeObj.snPosLeft[check] && snake.style.top == SnakeObj.snPosTop[check]) {
+            start();
+        }
+    }
+}
+function posArrDelete() {
+    if (SnakeObj.snPosLeft.length > elementSnake.length + 1 && SnakeObj.snPosTop.length > elementSnake.length + 1) {
+        SnakeObj.snPosLeft.splice(SnakeObj.snPosLeft.length - 1, 1);
+        SnakeObj.snPosTop.splice(SnakeObj.snPosTop.length - 1, 1);
+    }
+}
+function addDivToArr() {
+    if (snake.offsetLeft == parseInt(String(food.style.left)) && snake.offsetTop == parseInt(String(food.style.top))) {
+
+        positionFood();
+
+
+        addElementSnake(numberSnakeElement + 1);
+        document.getElementById("number" + numberSnakeElement);
+        elementSnake.push(createDivElement);
+
+        numberSnakeElement++;
+
+        point.innerHTML = "Score:" + numberSnakeElement;
+
+
+    }
+}
+function addPosInArr() {
+    for (var i = 0; i < elementSnake.length; i++) {
+        elementSnake[i].style.left = SnakeObj.snPosLeft[i + 1];
+        elementSnake[i].style.top = SnakeObj.snPosTop[i + 1];
+        elementSnake[i].style.display = "block";
+        if (i % 2 == 0) {
+            elementSnake[i].style.backgroundColor = "black";
+        }
+        else {
+            elementSnake[i].style.backgroundColor = "blue";
+        }
+
+    }
 }
