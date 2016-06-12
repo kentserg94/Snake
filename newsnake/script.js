@@ -5,8 +5,8 @@ var numberSnakeElement=0;
 
 var FieldObj={
     field:document.getElementById("field"),
-    fieldWidth:600,
-    fieldHeight:600
+    fieldWidth:400,
+    fieldHeight:400
 };
 
 var SnakeObj = {
@@ -131,8 +131,8 @@ function start(){
 
 
 
-
 function move(func){
+    point.innerHTML="Score:"+SnakeObj.elementSnake.length;
     clearInterval(timerId);
     timerId = setInterval(function() {
         func();
@@ -143,21 +143,12 @@ function move(func){
         contactCheck();
         posArrDelete();
         addPosInArr();
-
-        for (var checkPosition = 1; checkPosition < SnakeObj.snPosLeft.length; checkPosition++)
-        {
-            if(FoodObj.food.style.left==SnakeObj.snPosLeft[checkPosition] && FoodObj.food.style.top==SnakeObj.snPosTop[checkPosition]){
-                FoodObj.positionFood();
-            }
-
-        }
+        checkFoodSpawn();
         addDivToArr();
 
     }, 100);
 
 }
-
-
 
 function contactCheck() {
     for (var check = 1; check < SnakeObj.elementSnake.length+1; check++) {
@@ -166,6 +157,17 @@ function contactCheck() {
         }
     }
 }
+
+function checkFoodSpawn() {
+    for (var checkPosition = 1; checkPosition < SnakeObj.snPosLeft.length; checkPosition++) {
+        if (FoodObj.food.style.left == SnakeObj.snPosLeft[checkPosition] && FoodObj.food.style.top == SnakeObj.snPosTop[checkPosition]) {
+            FoodObj.positionFood();
+            checkFoodSpawn();
+        }
+
+    }
+}
+
 function posArrDelete() {
     if (SnakeObj.snPosLeft.length > SnakeObj.elementSnake.length + 1 && SnakeObj.snPosTop.length > SnakeObj.elementSnake.length + 1) {
         SnakeObj.snPosLeft.splice(SnakeObj.snPosLeft.length - 1, 1);
@@ -236,7 +238,7 @@ function main() {
     });
 
     FoodObj.positionFood();
-    point.innerHTML="Score:"+SnakeObj.elementSnake;
+    point.innerHTML="Score:"+SnakeObj.elementSnake.length;
 }
 
 main();
