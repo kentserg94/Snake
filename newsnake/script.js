@@ -1,16 +1,13 @@
-
-var field = document.getElementById("field");
 var point=document.getElementById("point");
-
 var direction=null;
 var timerId;
-
 var numberSnakeElement=0;
 
-
-
-
-
+var FieldObj={
+    field:document.getElementById("field"),
+    fieldWidth:600,
+    fieldHeight:600
+};
 
 var SnakeObj = {
     snake: document.getElementById("snake"),
@@ -25,7 +22,7 @@ var SnakeObj = {
         var a;
         a = this.snake.offsetLeft;
         this.snake.style.left=(a+SnakeObj.snakeWidth)+"px";
-            if(parseInt(String(this.snake.style.left))>480){
+            if(parseInt(String(this.snake.style.left))>FieldObj.fieldWidth-SnakeObj.snakeWidth){
                 this.snake.style.left=0+"px";
             }
 
@@ -37,7 +34,7 @@ var SnakeObj = {
         a = this.snake.offsetLeft;
         this.snake.style.left=(a-SnakeObj.snakeWidth)+"px";
             if(parseInt(String(this.snake.style.left))<0){
-                this.snake.style.left=480+"px";
+                this.snake.style.left=FieldObj.fieldWidth-SnakeObj.snakeWidth+"px";
             }
 
     },
@@ -47,28 +44,28 @@ var SnakeObj = {
         a = this.snake.offsetTop;
          this.snake.style.top=(a-SnakeObj.snakeWidth)+"px";
             if(parseInt(String(this.snake.style.top))<0){
-                this.snake.style.top=480+"px";
+                this.snake.style.top=FieldObj.fieldHeight-SnakeObj.snakeWidth+"px";
             }
          
     },
- down: function(){
-    direction=4;
-    var a;
-    a = this.snake.offsetTop;
-     this.snake.style.top=(a+SnakeObj.snakeWidth)+"px";
-    if(parseInt(String(this.snake.style.top))>480){
-        this.snake.style.top=0+"px";
+     down: function(){
+         direction=4;
+         var a;
+         a = this.snake.offsetTop;
+         this.snake.style.top=(a+SnakeObj.snakeWidth)+"px";
+            if(parseInt(String(this.snake.style.top))>FieldObj.fieldHeight-SnakeObj.snakeWidth){
+                this.snake.style.top=0+"px";
+            }
+    
+         
+    },
+    
+    addElementSnake: function(number) {
+        this.createDivElement = FieldObj.field.appendChild(document.createElement("div"));
+        this.createDivElement.className="element";
+        this.createDivElement.setAttribute("id","number"+number);
+
     }
-
-     
-},
-     addElementSnake: function(number) {
-    this.createDivElement = field.appendChild(document.createElement("div"));
-    this.createDivElement.className="element";
-
-    this.createDivElement.setAttribute("id","number"+number);
-
-}
 
 };
 
@@ -76,11 +73,11 @@ var FoodObj = {
     food: document.getElementById("food"),
    
        topPositionFood: function () {
-        var max=500;
+        var max=FieldObj.fieldHeight;
         var min=0;
         var topPosition = Math.floor(Math.random()*(max - min) + min);
     
-            if(topPosition%20==0 ){
+            if(topPosition%SnakeObj.snakeWidth==0 ){
         
                 this.food.style.top=topPosition+"px";
             }
@@ -90,11 +87,11 @@ var FoodObj = {
     
     },
       leftPositionFood:function() {
-        var max=500;
+        var max=FieldObj.fieldWidth;
         var min=0;
         var leftPosition = Math.floor(Math.random()*(max - min) + min);
     
-            if(leftPosition%20==0){
+            if(leftPosition%SnakeObj.snakeWidth==0){
         
         
                 this.food.style.left=leftPosition+"px";
@@ -105,57 +102,18 @@ var FoodObj = {
             }
     
     },
- positionFood: function() {
-
-    this.topPositionFood();
-    this.leftPositionFood();
-}
+     positionFood: function() {
+    
+        this.topPositionFood();
+        this.leftPositionFood();
+    }
 };
-
-
-
-point.innerHTML="Score:"+SnakeObj.elementSnake;
-
-   
-
-FoodObj.positionFood();
-
-
-
-window.addEventListener("keydown", function(event) {
-    if (event.keyCode == 68 && direction!=2 && direction!=1) {
-
-        move(SnakeObj.right);
-    }
-});
-
-
-window.addEventListener("keydown", function(event) {
-    if (event.keyCode == 65 && direction!=1 && direction!=2) {
-
-        move(SnakeObj.left);
-    }
-});
-
-window.addEventListener("keydown", function(event) {
-    if (event.keyCode == 83 && direction!=3 && direction!=4) {
-
-        move(SnakeObj.down);
-    }
-});
-
-window.addEventListener("keydown", function(event) {
-    if (event.keyCode == 87 && direction!=4 && direction!=3) {
-        
-        move(SnakeObj.up);
-    }
-});
 
 function start(){
 
-
-    SnakeObj.snake.style.left=240+'px';
-    SnakeObj.snake.style.top=240+'px';
+    clearInterval(timerId);
+    SnakeObj.snake.style.left=0+'px';
+    SnakeObj.snake.style.top=0+'px';
     numberSnakeElement=0;
     direction=null;
 
@@ -164,9 +122,7 @@ function start(){
     for(var i=1; i<=SnakeObj.elementSnake.length;i++){
         var x =document.getElementById("number"+String(i));
         x.remove();
-
-
-    }
+        }
     SnakeObj.elementSnake = [];
     SnakeObj.snPosLeft=[];
     SnakeObj.snPosTop=[];
@@ -248,3 +204,39 @@ function addPosInArr() {
     }
 }
 
+function main() {
+    start();
+    window.addEventListener("keydown", function(event) {
+        if (event.keyCode == 68 && direction!=2 && direction!=1) {
+
+            move(SnakeObj.right);
+        }
+    });
+
+
+    window.addEventListener("keydown", function(event) {
+        if (event.keyCode == 65 && direction!=1 && direction!=2) {
+
+            move(SnakeObj.left);
+        }
+    });
+
+    window.addEventListener("keydown", function(event) {
+        if (event.keyCode == 83 && direction!=3 && direction!=4) {
+
+            move(SnakeObj.down);
+        }
+    });
+
+    window.addEventListener("keydown", function(event) {
+        if (event.keyCode == 87 && direction!=4 && direction!=3) {
+
+            move(SnakeObj.up);
+        }
+    });
+
+    FoodObj.positionFood();
+    point.innerHTML="Score:"+SnakeObj.elementSnake;
+}
+
+main();
