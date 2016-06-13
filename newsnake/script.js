@@ -1,5 +1,4 @@
 var point=document.getElementById("point");
-var direction=null;
 var timerId;
 var numberSnakeElement=0;
 
@@ -18,7 +17,7 @@ var SnakeObj = {
     elementSnake:[],
 
      right: function(){
-        direction=1;
+        this.direction=1;
         var a;
         a = this.snake.offsetLeft;
         this.snake.style.left=(a+SnakeObj.snakeWidth)+"px";
@@ -29,7 +28,7 @@ var SnakeObj = {
       
     },
     left: function (){
-        direction=2;
+        this.direction=2;
         var a;
         a = this.snake.offsetLeft;
         this.snake.style.left=(a-SnakeObj.snakeWidth)+"px";
@@ -39,7 +38,7 @@ var SnakeObj = {
 
     },
      up: function(){
-        direction=3;
+         this.direction=3;
         var a;
         a = this.snake.offsetTop;
          this.snake.style.top=(a-SnakeObj.snakeWidth)+"px";
@@ -49,7 +48,7 @@ var SnakeObj = {
          
     },
      down: function(){
-         direction=4;
+         this.direction=4;
          var a;
          a = this.snake.offsetTop;
          this.snake.style.top=(a+SnakeObj.snakeWidth)+"px";
@@ -209,31 +208,33 @@ function addPosInArr() {
 function main() {
     start();
     window.addEventListener("keydown", function(event) {
-        if (event.keyCode == 68 && direction!=2 && direction!=1) {
+        if (event.keyCode == 68 && SnakeObj.direction!=2 && SnakeObj.direction!=1) {
 
-            move(SnakeObj.right);
+            move(SnakeObj.right.bind(SnakeObj));
         }
     });
 
 
     window.addEventListener("keydown", function(event) {
-        if (event.keyCode == 65 && direction!=1 && direction!=2) {
+        if (event.keyCode == 65 && SnakeObj.direction!=1 && SnakeObj.direction!=2) {
 
-            move(SnakeObj.left);
+            move(function(){
+                SnakeObj.left();
+            });
         }
     });
 
     window.addEventListener("keydown", function(event) {
-        if (event.keyCode == 83 && direction!=3 && direction!=4) {
+        if (event.keyCode == 83 && SnakeObj.direction!=3 && SnakeObj.direction!=4) {
 
-            move(SnakeObj.down);
+            move(SnakeObj.down.bind(SnakeObj));
         }
     });
 
     window.addEventListener("keydown", function(event) {
-        if (event.keyCode == 87 && direction!=4 && direction!=3) {
+        if (event.keyCode == 87 && SnakeObj.direction!=4 && SnakeObj.direction!=3) {
 
-            move(SnakeObj.up);
+            move(SnakeObj.up.bind(SnakeObj));
         }
     });
 
