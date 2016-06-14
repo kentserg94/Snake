@@ -1,4 +1,8 @@
+var pp = document.forms["pp"];
+var diff = pp.elements["diff"];
+
 var point=document.getElementById("point");
+
 var timerId;
 var numberSnakeElement=0;
 
