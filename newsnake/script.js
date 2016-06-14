@@ -1,6 +1,14 @@
 var point=document.getElementById("point");
 var timerId;
 var numberSnakeElement=0;
+// problem
+var ScoreObj={
+    score:document.getElementById("point"),
+    scoreIncr:function () {
+        var inc=0;
+        this.score.innerHTML="Score:" + inc++;
+    }
+};
 
 var FieldObj={
     field:document.getElementById("field"),
@@ -114,7 +122,7 @@ function start(){
     SnakeObj.snake.style.left=0+'px';
     SnakeObj.snake.style.top=0+'px';
     numberSnakeElement=0;
-    direction=null;
+    SnakeObj.direction=null;
 
 
 
@@ -184,10 +192,7 @@ function addDivToArr() {
         SnakeObj.elementSnake.push(SnakeObj.createDivElement);
 
         numberSnakeElement++;
-
-        point.innerHTML = "Score:" + numberSnakeElement;
-
-
+        point.innerHTML="Score:"+SnakeObj.elementSnake.length;
     }
 }
 function addPosInArr() {
