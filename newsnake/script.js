@@ -1,5 +1,30 @@
-var pp = document.forms["pp"];
-var diff = pp.elements["diff"];
+var diff_value;
+var size_value;
+function getCheckedValue() {
+
+    var diffs = document.forms["form"].elements["diff"];
+    for(var i = 0; i < diffs.length; i++) {
+            if(diffs[i].checked)
+        {
+            diff_value = diffs[i].value;
+            console.log(diff_value)
+
+        }
+    }
+    var sizes = document.forms["form"].elements["size"];
+    for(var i = 0; i < sizes.length; i++) {
+        if(sizes[i].checked)
+        {
+            size_value = sizes[i].value;
+            console.log(size_value)
+
+        }
+    }
+
+}
+
+
+
 
 var point=document.getElementById("point");
 

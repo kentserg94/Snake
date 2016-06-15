@@ -6,13 +6,30 @@
     <link rel="stylesheet" href="style.css" class="style">
 </head>
 <body>
-<form action="" name="pp">
-    <p><input type="radio" name="diff" value="Easy">Easy</p>
-    <p><input type="radio" name="diff" value = "Medium" checked>Medium</p>
-    <p><input type="radio" name="diff" value="Hard">Hard<p>
+
+
+
+
+<form name="form">
+    <p>Difficulty:</p>
+    <p><input type="radio" name="diff" value="Easy" checked>Easy</p>
+    <p><input type="radio" name="diff" value="Medium">Medium</p>
+    <p><input type="radio" name="diff" value="Hard">Hard</p>
+
+    <p>Field size:</p>
+    <p><input type="radio" name="size" value="Small">Small</p>
+    <p><input type="radio" name="size" value="Medium" checked>Medium</p>
+    <p><input type="radio" name="size" value="Big">Big</p>
+
+    <input type="button" value="Apply" onClick="getCheckedValue()">
 
 </form>
+
 <script src="draw.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
