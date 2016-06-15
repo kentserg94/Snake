@@ -1,5 +1,8 @@
-var pp = document.forms["pp"];
-var diff = pp.elements["diff"];
+var difficulty = document.forms["difficulty"];
+var diff = difficulty.elements["diff"];
+if (diff.value=="Medium"){
+    console.log("ddddd");
+}
 
 var point=document.getElementById("point");
 
