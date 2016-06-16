@@ -1,32 +1,60 @@
+var button = document.querySelector("form");
+button.addEventListener("submit", function(event){
+        event.preventDefault();
+    var diffs = button.elements["diff"];
 
-function getCheckedValue() {
-
-    var diffs = document.forms["form"].elements["diff"];
-    window.diffValue;
-    for(var i = 0; i < diffs.length; i++) {
-            if(diffs[i].checked)
-        {
-            diffValue = diffs[i].value;
-
+    for (var i = 0; i < diffs.length; i++) {
+        if (diffs[i].checked) {
+            values.diff_value = diffs[i].value;
 
 
         }
     }
-    // var sizes = document.forms["form"].elements["size"];
-    // window.sizeValue;
-    // for(var i = 0; i < sizes.length; i++) {
-    //     if(sizes[i].checked)
-    //     {
-    //         sizeValue = sizes[i].value;
-    //
-    //
-    //     }
-    // }
+    var sizes = button.elements["size"];
 
-}
+    for (var i = 0; i < sizes.length; i++) {
+        if (sizes[i].checked) {
+            values.size_value = sizes[i].value;
 
 
+        }
+    }
+        console.log(event);
+        values.getCheckedValue.bind(event.target);
+    }
+);
 
+
+
+
+//если кто то будет менять этот код пожалуйста не трогайте объект values !!! ПОЖАЛУЙСТА!!!!Не пытайтесь понять как это работает
+
+var values = {
+    diff_value: null,
+    size_value: null,
+    getCheckedValue: function (form) {
+        console.log("a"+form);
+        var diffs = button.elements["diff"];
+
+        for (var i = 0; i < diffs.length; i++) {
+            if (diffs[i].checked) {
+                this.diff_value = diffs[i].value;
+
+
+            }
+        }
+
+        var sizes = button.elements["size"];
+
+        for (var i = 0; i < sizes.length; i++) {
+            if (sizes[i].checked) {
+                this.size_value = sizes[i].value;
+
+
+            }
+        }
+    }
+};
 
 var point=document.getElementById("point");
 
