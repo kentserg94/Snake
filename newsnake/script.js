@@ -1,8 +1,32 @@
-var difficulty = document.forms["difficulty"];
-var diff = difficulty.elements["diff"];
-if (diff.value=="Medium"){
-    console.log("ddddd");
+
+function getCheckedValue() {
+
+    var diffs = document.forms["form"].elements["diff"];
+    window.diffValue;
+    for(var i = 0; i < diffs.length; i++) {
+            if(diffs[i].checked)
+        {
+            diffValue = diffs[i].value;
+
+
+
+        }
+    }
+    // var sizes = document.forms["form"].elements["size"];
+    // window.sizeValue;
+    // for(var i = 0; i < sizes.length; i++) {
+    //     if(sizes[i].checked)
+    //     {
+    //         sizeValue = sizes[i].value;
+    //
+    //
+    //     }
+    // }
+
 }
+
+
+
 
 var point=document.getElementById("point");
 
