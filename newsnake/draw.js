@@ -1,6 +1,7 @@
 function draw() {
     var score=document.createElement("div");
     score.className="score";
+    score.setAttribute("id", "score");
     document.body.appendChild(score);
     var point=document.createElement("h2");
     point.setAttribute("id","point");

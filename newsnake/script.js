@@ -1,32 +1,8 @@
-var button = document.querySelector("form");
-button.addEventListener("submit", function(event){
-        event.preventDefault();
-    var diffs = button.elements["diff"];
+"use strict"
+;var point=document.getElementById("point");
 
-    for (var i = 0; i < diffs.length; i++) {
-        if (diffs[i].checked) {
-            values.diff_value = diffs[i].value;
-
-
-        }
-    }
-    var sizes = button.elements["size"];
-
-    for (var i = 0; i < sizes.length; i++) {
-        if (sizes[i].checked) {
-            values.size_value = sizes[i].value;
-
-
-        }
-    }
-        console.log(event);
-        values.getCheckedValue.bind(event.target);
-    }
-);
-
-
-
-
+var timerId;
+var numberSnakeElement=0;
 //если кто то будет менять этот код пожалуйста не трогайте объект values !!! ПОЖАЛУЙСТА!!!!Не пытайтесь понять как это работает
 
 var values = {
@@ -55,11 +31,81 @@ var values = {
         }
     }
 };
+var button = document.querySelector("form");
+button.addEventListener("submit", function(event){
+        event.preventDefault();
+        var diffs = button.elements["diff"];
 
-var point=document.getElementById("point");
+        for (var i = 0; i < diffs.length; i++) {
+            if (diffs[i].checked) {
+                values.diff_value = diffs[i].value;
 
-var timerId;
-var numberSnakeElement=0;
+
+            }
+        }
+        var sizes = button.elements["size"];
+
+        for (var i = 0; i < sizes.length; i++) {
+            if (sizes[i].checked) {
+                values.size_value = sizes[i].value;
+
+
+            }
+        }
+        console.log(event);
+        values.getCheckedValue.bind(event.target);
+        var score = document.getElementById("score");
+        //FieldObj.applyWidth.call(FieldObj);
+        //FieldObj.applyHeight.call(FieldObj);
+         FieldObj.field.style.display = "block";
+        score.style.display = "block";
+        button.style.display = "none";
+    }
+);
+var settings = {
+    fieldSize: {
+        small: 200,
+        medium: 400,
+        big: 800
+    },
+    difficulty: {
+        easy: {
+            speed: 100
+        },
+        medium: {
+            speed: 75
+        },
+        hard: {
+            speed: 50
+        }
+    }
+};
+var appliedSettings = {
+    difficultySettings: function(){
+        if (values.diff_value == "easy") {
+            this.speed = settings.difficulty.easy.speed
+        }
+        if (values.diff_value == "medium") {
+            this.speed = settings.difficulty.medium.speed
+        }
+        if (values.diff_value == "hard") {
+            this.speed = settings.difficulty.hard.speed
+        }
+        return this.speed
+    },
+    fieldSettings: function(){
+        if (values.size_value == "small") {
+            this.size = settings.fieldSize.small
+        }
+        if (values.size_value == "medium") {
+            this.size = settings.fieldSize.medium
+        }
+        if (values.size_value == "big") {
+            this.size = settings.fieldSize.big
+        }
+        return this.size
+    }
+};
 // problem
 var ScoreObj={
     score:document.getElementById("point"),
@@ -71,8 +117,12 @@ var ScoreObj={
 
 var FieldObj={
     field:document.getElementById("field"),
-    fieldWidth:400,
-    fieldHeight:400
+    fieldWidth: 400,
+    fieldHeight: 400
+    /*fieldWidth:appliedSettings.fieldSettings.call(appliedSettings),
+    fieldHeight:appliedSettings.fieldSettings.call(appliedSettings),
+    applyWidth: function(){this.field.style.width = this.fieldWidth + "px"},
+    applyHeight: function(){this.field.style.height = this.fieldHeight + "px"}*/
 };
 
 var SnakeObj = {
@@ -212,7 +262,7 @@ function move(func){
         checkFoodSpawn();
         addDivToArr();
 
-    }, 100);
+    }, appliedSettings.difficultySettings());
 
 }
 
@@ -305,5 +355,7 @@ function main() {
     FoodObj.positionFood();
     point.innerHTML="Score:"+SnakeObj.elementSnake.length;
 }
+
+
 
 main();
