@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 ;var point=document.getElementById("point");
 
 var timerId;
@@ -8,6 +8,7 @@ var numberSnakeElement=0;
 var values = {
     diff_value: null,
     size_value: null,
+    width:null,
     getCheckedValue: function (form) {
         console.log("a"+form);
         var diffs = button.elements["diff"];
@@ -52,14 +53,18 @@ button.addEventListener("submit", function(event){
 
             }
         }
-        console.log(event);
+
         values.getCheckedValue.bind(event.target);
         var score = document.getElementById("score");
-        //FieldObj.applyWidth.call(FieldObj);
-        //FieldObj.applyHeight.call(FieldObj);
-         FieldObj.field.style.display = "block";
+        FieldObj.applyWidth();
+        FieldObj.applyHeight();
+        FieldObj.field.style.display = "block";
         score.style.display = "block";
         button.style.display = "none";
+        // var width=parseInt(String(FieldObj.field.style.width));
+        // values.width=width;
+        main();
+
     }
 );
 var settings = {
@@ -78,18 +83,16 @@ var settings = {
         hard: {
             speed: 50
         }
-    }
-};
-var appliedSettings = {
+    },
     difficultySettings: function(){
         if (values.diff_value == "easy") {
-            this.speed = settings.difficulty.easy.speed
+            this.speed = this.difficulty.easy.speed
         }
         if (values.diff_value == "medium") {
-            this.speed = settings.difficulty.medium.speed
+            this.speed = this.difficulty.medium.speed
         }
         if (values.diff_value == "hard") {
-            this.speed = settings.difficulty.hard.speed
+            this.speed = this.difficulty.hard.speed
         }
         return this.speed
     },
@@ -106,6 +109,8 @@ var appliedSettings = {
         return this.size
     }
 };
+
+
 // problem
 var ScoreObj={
     score:document.getElementById("point"),
@@ -117,13 +122,19 @@ var ScoreObj={
 
 var FieldObj={
     field:document.getElementById("field"),
-    fieldWidth: 400,
-    fieldHeight: 400
-    /*fieldWidth:appliedSettings.fieldSettings.call(appliedSettings),
-    fieldHeight:appliedSettings.fieldSettings.call(appliedSettings),
-    applyWidth: function(){this.field.style.width = this.fieldWidth + "px"},
-    applyHeight: function(){this.field.style.height = this.fieldHeight + "px"}*/
+    fieldWidth:settings.fieldSettings,
+    fieldHeight:settings.fieldSettings,
+    applyWidth: function(){
+        this.field.style.width = this.fieldWidth() + "px";
+        return this.field.style.width;
+    },
+    applyHeight: function(){
+        this.field.style.height = this.fieldHeight() + "px";
+        return this.field.style.height
+    }
 };
+
+
 
 var SnakeObj = {
     snake: document.getElementById("snake"),
@@ -138,7 +149,7 @@ var SnakeObj = {
         var a;
         a = this.snake.offsetLeft;
         this.snake.style.left=(a+SnakeObj.snakeWidth)+"px";
-            if(parseInt(String(this.snake.style.left))>FieldObj.fieldWidth-SnakeObj.snakeWidth){
+            if(parseInt(String(this.snake.style.left))>FieldObj.fieldWidth()-SnakeObj.snakeWidth){
                 this.snake.style.left=0+"px";
             }
 
@@ -150,7 +161,7 @@ var SnakeObj = {
         a = this.snake.offsetLeft;
         this.snake.style.left=(a-SnakeObj.snakeWidth)+"px";
             if(parseInt(String(this.snake.style.left))<0){
-                this.snake.style.left=FieldObj.fieldWidth-SnakeObj.snakeWidth+"px";
+                this.snake.style.left=FieldObj.fieldWidth()-SnakeObj.snakeWidth+"px";
             }
 
     },
@@ -160,7 +171,7 @@ var SnakeObj = {
         a = this.snake.offsetTop;
          this.snake.style.top=(a-SnakeObj.snakeWidth)+"px";
             if(parseInt(String(this.snake.style.top))<0){
-                this.snake.style.top=FieldObj.fieldHeight-SnakeObj.snakeWidth+"px";
+                this.snake.style.top=FieldObj.fieldHeight()-SnakeObj.snakeWidth+"px";
             }
          
     },
@@ -169,7 +180,7 @@ var SnakeObj = {
          var a;
          a = this.snake.offsetTop;
          this.snake.style.top=(a+SnakeObj.snakeWidth)+"px";
-            if(parseInt(String(this.snake.style.top))>FieldObj.fieldHeight-SnakeObj.snakeWidth){
+            if(parseInt(String(this.snake.style.top))>FieldObj.fieldHeight()-SnakeObj.snakeWidth){
                 this.snake.style.top=0+"px";
             }
     
@@ -189,7 +200,8 @@ var FoodObj = {
     food: document.getElementById("food"),
    
        topPositionFood: function () {
-        var max=FieldObj.fieldHeight;
+        var max=FieldObj.fieldWidth();
+
         var min=0;
         var topPosition = Math.floor(Math.random()*(max - min) + min);
     
@@ -203,7 +215,7 @@ var FoodObj = {
     
     },
       leftPositionFood:function() {
-        var max=FieldObj.fieldWidth;
+        var max=FieldObj.fieldWidth();
         var min=0;
         var leftPosition = Math.floor(Math.random()*(max - min) + min);
     
@@ -262,7 +274,7 @@ function move(func){
         checkFoodSpawn();
         addDivToArr();
 
-    }, appliedSettings.difficultySettings());
+    }, settings.difficultySettings());
 
 }
 
@@ -321,6 +333,7 @@ function addPosInArr() {
 
 function main() {
     start();
+    console.log("a "+values.width);
     window.addEventListener("keydown", function(event) {
         if (event.keyCode == 68 && SnakeObj.direction!=2 && SnakeObj.direction!=1) {
 
@@ -358,4 +371,4 @@ function main() {
 
 
 
-main();
+
